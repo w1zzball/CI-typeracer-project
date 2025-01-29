@@ -11,8 +11,8 @@
 </head>
 
 <body>
-    <section id="instructions" class="container mt-5">
-        <div class="card">
+    <section id="instructions" class="container mt-5 ">
+        <div class="card text-center">
             <div class="card-body">
                 <h2>Typeracer</h2>
                 <button type="button" class="btn btn-primary">Instructions</button>
@@ -20,14 +20,14 @@
         </div>
     </section>
     <section id="game" class="container mt-3">
-        <div class="row justify-content-center border p-2">
-            <div class="col-auto">
-                <div class="input-group">
-                    <span class="input-group-text">Select Difficulty:</span>
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="difficultyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="row justify-content-center  p-2">
+            <div class="col-12">
+                <div class="input-group border rounded align-items-center">
+                    <span class=" flex-grow-1 text-end pe-5 my-auto">Select Difficulty:</span>
+                    <button class="btn btn-secondary dropdown-toggle flex-grow-1" type="button" id="difficultyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Easy
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="difficultyDropdown">
+                    <ul class="dropdown-menu w-100" aria-labelledby="difficultyDropdown">
                         <li><a class="dropdown-item active" href="#">Easy</a></li>
                         <li><a class="dropdown-item" href="#">Medium</a></li>
                         <li><a class="dropdown-item" href="#">Hard</a></li>
@@ -53,10 +53,18 @@
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col d-flex justify-content-center gap-3">
-                <button type="button" class="btn btn-success" id="start-btn">Start</button>
-                <button type="button" class="btn btn-danger" id="stop-btn">Stop</button>
-                <button type="button" class="btn btn-warning" id="retry-btn">Retry</button>
+            <div class="col">
+                <div class="row g-3">
+                    <div class="col-4">
+                        <button type="button" class="btn btn-outline-warning text-dark w-100" id="start-btn">Start</button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-outline-warning text-dark w-100" id="stop-btn">Stop</button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-outline-warning text-dark w-100" id="retry-btn">Retry</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
