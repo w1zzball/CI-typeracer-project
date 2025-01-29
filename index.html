@@ -20,12 +20,10 @@
         </div>
     </section>
     <section id="game" class="container mt-3">
-        <div class="row align-items-center justify-content-center border p-2">
-            <div class="col-auto text-end">
-                <label class="form-label mb-0">Select Difficulty:</label>
-            </div>
+        <div class="row justify-content-center border p-2">
             <div class="col-auto">
-                <div class="dropdown">
+                <div class="input-group">
+                    <span class="input-group-text">Select Difficulty:</span>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="difficultyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Easy
                     </button>
@@ -52,6 +50,23 @@
         <div class="row mt-3">
             <div class="col">
                 <textarea class="form-control" id="user-input" rows="3" placeholder="Start typing here..."></textarea>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col d-flex justify-content-center gap-3">
+                <button type="button" class="btn btn-success" id="start-btn">Start</button>
+                <button type="button" class="btn btn-danger" id="stop-btn">Stop</button>
+                <button type="button" class="btn btn-warning" id="retry-btn">Retry</button>
+            </div>
+        </div>
+    </section>
+    <section id="results" class="container mt-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Results</h4>
+                <p class="card-text" id="level-result">Level: Easy</p>
+                <p class="card-text" id="time-result">Time: </p>
+                <p class="card-text" id="wpm-result">WPM: </p>
             </div>
         </div>
     </section>
