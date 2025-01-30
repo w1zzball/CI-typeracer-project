@@ -27,6 +27,7 @@ const startBtn = document.getElementById('start-btn');
 const stopBtn = document.getElementById('stop-btn');
 const timeResult = document.getElementById('time-result');
 const userInput = document.getElementById('user-input');
+const wpmResult = document.getElementById('wpm-result');
 
 // Initialize textarea state
 userInput.disabled = true;
@@ -53,11 +54,22 @@ function stopTimer() {
     if (isTimerRunning) {
         isTimerRunning = false;
         clearInterval(timerInterval);
-        const finalTime = formatTime(Date.now() - startTime);
+        const endTime = Date.now();
+        const timeInSeconds = (endTime - startTime) / 1000;
+        const finalTime = formatTime(endTime - startTime);
+        
+        // Calculate and display WPM
+        const typedText = userInput.value;
+        const wpm = calculateWPM(typedText, timeInSeconds);
+        
+        // Update results
         timeResult.textContent = `Time: ${finalTime}`;
+        wpmResult.textContent = `WPM: ${wpm}`;
+        
+        // Disable controls
         startBtn.disabled = false;
         stopBtn.disabled = true;
-        userInput.disabled = true;  // Disable textarea
+        userInput.disabled = true;
     }
 }
 
@@ -70,6 +82,13 @@ function formatTime(ms) {
     const seconds = Math.floor(ms / 1000);
     const milliseconds = Math.floor((ms % 1000) / 10);
     return `${seconds}.${milliseconds.toString().padStart(2, '0')}s`;
+}
+
+function calculateWPM(text, timeInSeconds) {
+    // Standard word length is considered 5 characters
+    const words = text.trim().length / 5;
+    const minutes = timeInSeconds / 60;
+    return Math.round(words / minutes);
 }
 
 // Event listeners for timer buttons
