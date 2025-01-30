@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=Nunito:wght@400;700&display=swap");
+
+body{
+    font-family: 'Nunito', sans-serif;
+}
+.alegreya {
+    font-family: 'Alegreya', serif;
+}
+
 .shadow-blur {
     box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
 }
