@@ -15,10 +15,42 @@
         <div class="card text-center bg-warning border-0">
             <div class="card-body">
                 <h2 class="alegreya text-white">Typeracer</h2>
-                <button type="button" class="btn btn-light text-dark">Instructions</button>
+                <button type="button" class="btn btn-light text-dark" id="instructionsBtn" data-bs-toggle="modal" data-bs-target="#instructionsModal">Instructions</button>
             </div>
         </div>
     </section>
+
+    <!-- Instructions Modal -->
+    <div class="modal fade" id="instructionsModal" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title text-white" id="instructionsModalLabel">How to Use Typeracer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item">Select your difficulty level from the dropdown menu</li>
+                        <li class="list-group-item">Start typing in the text area to begin the timer</li>
+                        <li class="list-group-item">Your typing will be checked in real-time:
+                            <ul>
+                                <li class="text-success">Green words are correct</li>
+                                <li class="text-danger">Red words are incorrect</li>
+                                <li class="text-secondary">Gray words are not typed yet</li>
+                            </ul>
+                        </li>
+                        <li class="list-group-item">Press Enter when you're finished typing</li>
+                        <li class="list-group-item">View your results: time taken and words per minute</li>
+                        <li class="list-group-item">Click Retry to start a new test</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mt-3">
         <div class="row">
             <div class="col-12 col-md-8">
