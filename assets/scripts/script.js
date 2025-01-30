@@ -48,7 +48,12 @@ function startTimer() {
         startBtn.disabled = true;
         stopBtn.disabled = false;
         userInput.disabled = false;  // Enable textarea
+        userInput.value = ''; // Clear any existing input
         userInput.focus();  // Focus textarea for immediate typing
+        
+        // Initialize sample text with not-typed class
+        const currentText = sampleTextElement.textContent;
+        sampleTextElement.innerHTML = `<span class="not-typed">${currentText}</span>`;
     }
 }
 
@@ -158,7 +163,53 @@ function resetGame() {
     // Reset button states
     startBtn.disabled = false;
     stopBtn.disabled = true;
+
+    // Reset sample text highlighting
+    const originalText = sampleTextElement.textContent;
+    sampleTextElement.innerHTML = `<span class="not-typed">${originalText}</span>`;
 }
 
 // Add retry button event listener
 retryBtn.addEventListener('click', resetGame);
+
+function compareText(typedText) {
+    // Get original text without any HTML
+    const sampleText = sampleTextElement.textContent;
+    
+    // Split both texts into words
+    const sampleWords = sampleText.split(' ');
+    const typedWords = typedText.trim().split(' ');
+    
+    // Create spans for each word with appropriate styling
+    const formattedText = sampleWords.map((word, index) => {
+        if (!typedWords[index]) {
+            // Word hasn't been typed yet
+            return `<span class="not-typed">${word}</span>`;
+        }
+        
+        // Exact match comparison
+        const isCorrect = word === typedWords[index];
+        const className = isCorrect ? 'correct' : 'incorrect';
+        return `<span class="${className}">${word}</span>`;
+    });
+    
+    // Join words with space and update HTML
+    sampleTextElement.innerHTML = formattedText.join(' ');
+}
+
+// Add input event listener for real-time feedback
+userInput.addEventListener('input', (e) => {
+    if (isTimerRunning) {
+        compareText(e.target.value);
+    }
+});
+
+function initializeGame() {
+    // Set initial sample text with Easy difficulty
+    sampleTextElement.textContent = getRandomText('easy');
+    // Initialize with not-typed class
+    sampleTextElement.innerHTML = `<span class="not-typed">${sampleTextElement.textContent}</span>`;
+}
+
+// Call initialize function when DOM content is loaded
+document.addEventListener('DOMContentLoaded', initializeGame);
