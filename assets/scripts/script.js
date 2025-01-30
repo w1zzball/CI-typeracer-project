@@ -29,6 +29,7 @@ const timeResult = document.getElementById('time-result');
 const userInput = document.getElementById('user-input');
 const wpmResult = document.getElementById('wpm-result');
 const levelResult = document.getElementById('level-result');
+const retryBtn = document.getElementById('retry-btn');
 
 // Initialize textarea state
 userInput.disabled = true;
@@ -140,3 +141,24 @@ difficultyItems.forEach(item => {
         levelResult.textContent = `Level: ${difficulty}`;
     });
 });
+
+function resetGame() {
+    // Stop timer if running
+    if (isTimerRunning) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+    }
+    
+    // Reset input and results
+    userInput.value = '';
+    userInput.disabled = true;
+    timeResult.textContent = 'Time: ';
+    wpmResult.textContent = 'WPM: ';
+    
+    // Reset button states
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+}
+
+// Add retry button event listener
+retryBtn.addEventListener('click', resetGame);
