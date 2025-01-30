@@ -28,6 +28,7 @@ const stopBtn = document.getElementById('stop-btn');
 const timeResult = document.getElementById('time-result');
 const userInput = document.getElementById('user-input');
 const wpmResult = document.getElementById('wpm-result');
+const levelResult = document.getElementById('level-result');
 
 // Initialize textarea state
 userInput.disabled = true;
@@ -119,5 +120,8 @@ difficultyItems.forEach(item => {
         
         // Update sample text
         sampleTextElement.textContent = getRandomText(difficulty);
+        
+        // Update level in results
+        levelResult.textContent = `Level: ${difficulty}`;
     });
 });
