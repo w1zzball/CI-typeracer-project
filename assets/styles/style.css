@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=Nunito:wght@400;700&display=swap");
 
+:root {
+    --custom-orange: #ff8400;
+}
+
 body{
     font-family: 'Nunito', sans-serif;
 }
@@ -7,6 +11,23 @@ body{
     font-family: 'Alegreya', serif;
 }
 
+.bg-warning {
+    background-color: var(--custom-orange) !important;
+}
+
+.btn-outline-warning {
+    --bs-btn-color: var(--custom-orange);
+    --bs-btn-border-color: var(--custom-orange);
+    --bs-btn-hover-bg: var(--custom-orange);
+    --bs-btn-hover-border-color: var(--custom-orange);
+    --bs-btn-active-bg: var(--custom-orange);
+    --bs-btn-active-border-color: var(--custom-orange);
+}
+
+.border-warning {
+    border-color: var(--custom-orange) !important;
+}
+
 .shadow-blur {
-    box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+    box-shadow: 0 0 10px rgba(255, 132, 0, 0.5);
 }
