@@ -23,8 +23,6 @@ const difficultyItems = document.querySelectorAll('.dropdown-item');
 const sampleTextElement = document.getElementById('sample-text');
 
 // Additional DOM elements
-const startBtn = document.getElementById('start-btn');
-const stopBtn = document.getElementById('stop-btn');
 const timeResult = document.getElementById('time-result');
 const userInput = document.getElementById('user-input');
 const wpmResult = document.getElementById('wpm-result');
@@ -32,12 +30,13 @@ const levelResult = document.getElementById('level-result');
 const retryBtn = document.getElementById('retry-btn');
 
 // Initialize textarea state
-userInput.disabled = true;
+userInput.disabled = false;
 
 // Timer variables
 let startTime;
 let timerInterval;
 let isTimerRunning = false;
+let isFirstKeystroke = true;
 
 // Timer functions
 function startTimer() {
@@ -45,17 +44,16 @@ function startTimer() {
         isTimerRunning = true;
         startTime = Date.now();
         timerInterval = setInterval(updateTimer, 10); // Update every 10ms
-        startBtn.disabled = true;
-        stopBtn.disabled = false;
-        userInput.disabled = false;  // Enable textarea
-        userInput.value = ''; // Clear any existing input
-        userInput.focus();  // Focus textarea for immediate typing
-        
-        // Initialize sample text with not-typed class
-        const currentText = sampleTextElement.textContent;
-        sampleTextElement.innerHTML = `<span class="not-typed">${currentText}</span>`;
     }
 }
+
+// Add keydown event listener for Enter key
+userInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && isTimerRunning) {
+        e.preventDefault(); // Prevent new line in textarea
+        stopTimer();
+    }
+});
 
 function stopTimer() {
     if (isTimerRunning) {
@@ -75,8 +73,6 @@ function stopTimer() {
         levelResult.textContent = `Level: ${difficultyDropdown.textContent}`;
         
         // Disable controls
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
         userInput.disabled = true;
     }
 }
@@ -112,13 +108,6 @@ function calculateWPM(typedText, timeInSeconds) {
     const minutes = timeInSeconds / 60;
     return Math.round(correctWords / minutes);
 }
-
-// Event listeners for timer buttons
-startBtn.addEventListener('click', startTimer);
-stopBtn.addEventListener('click', stopTimer);
-
-// Initialize button states
-stopBtn.disabled = true;
 
 // Function to get random text based on difficulty
 function getRandomText(difficulty) {
@@ -156,17 +145,15 @@ function resetGame() {
     
     // Reset input and results
     userInput.value = '';
-    userInput.disabled = true;
+    userInput.disabled = false;
     timeResult.textContent = 'Time: ';
     wpmResult.textContent = 'WPM: ';
     
-    // Reset button states
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-
     // Reset sample text highlighting
     const originalText = sampleTextElement.textContent;
     sampleTextElement.innerHTML = `<span class="not-typed">${originalText}</span>`;
+
+    isFirstKeystroke = true;
 }
 
 // Add retry button event listener
@@ -197,8 +184,12 @@ function compareText(typedText) {
     sampleTextElement.innerHTML = formattedText.join(' ');
 }
 
-// Add input event listener for real-time feedback
+// Modify input event listener for real-time feedback
 userInput.addEventListener('input', (e) => {
+    if (isFirstKeystroke) {
+        startTimer();
+        isFirstKeystroke = false;
+    }
     if (isTimerRunning) {
         compareText(e.target.value);
     }
@@ -209,6 +200,8 @@ function initializeGame() {
     sampleTextElement.textContent = getRandomText('easy');
     // Initialize with not-typed class
     sampleTextElement.innerHTML = `<span class="not-typed">${sampleTextElement.textContent}</span>`;
+    isFirstKeystroke = true;
+    userInput.disabled = false;
 }
 
 // Call initialize function when DOM content is loaded
