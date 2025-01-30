@@ -66,6 +66,7 @@ function stopTimer() {
         // Update results
         timeResult.textContent = `Time: ${finalTime}`;
         wpmResult.textContent = `WPM: ${wpm}`;
+        levelResult.textContent = `Level: ${difficultyDropdown.textContent}`;
         
         // Disable controls
         startBtn.disabled = false;
@@ -85,11 +86,25 @@ function formatTime(ms) {
     return `${seconds}.${milliseconds.toString().padStart(2, '0')}s`;
 }
 
-function calculateWPM(text, timeInSeconds) {
-    // Standard word length is considered 5 characters
-    const words = text.trim().length / 5;
+function calculateWPM(typedText, timeInSeconds) {
+    // Get the sample text for comparison
+    const sampleText = sampleTextElement.textContent;
+    
+    // Split both texts into words
+    const sampleWords = sampleText.trim().split(/\s+/);
+    const typedWords = typedText.trim().split(/\s+/);
+    
+    // Count correctly typed words
+    let correctWords = 0;
+    for (let i = 0; i < Math.min(sampleWords.length, typedWords.length); i++) {
+        if (sampleWords[i] === typedWords[i]) {
+            correctWords++;
+        }
+    }
+    
+    // Calculate WPM: (correct words / time in minutes)
     const minutes = timeInSeconds / 60;
-    return Math.round(words / minutes);
+    return Math.round(correctWords / minutes);
 }
 
 // Event listeners for timer buttons
